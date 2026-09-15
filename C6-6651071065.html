@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đặt vé máy bay VietAir</title>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #dff3ff;
+            font-family: Arial, sans-serif;
+            color: #333333;
+        }
+
+        main {
+            width: 650px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #999999;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 21px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .dong {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+
+        label {
+            width: 160px;
+            font-size: 13px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 300px;
+            height: 28px;
+            border: 1px solid #aaaaaa;
+            border-radius: 4px;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+
+        .khach {
+            display: flex;
+            gap: 20px;
+        }
+
+        .khach .dong {
+            display: block;
+        }
+
+        .khach label {
+            display: block;
+            width: auto;
+            margin-bottom: 5px;
+        }
+
+        .khach input {
+            width: 150px;
+        }
+
+        output {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        .bao-mat {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .nut {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        button {
+            width: 100%;
+            height: 38px;
+            background-color: #ed7918;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d9670b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <h1>Đặt vé máy bay VietAir - Kết quả Bài tập</h1>
+
+        <form action="#" method="POST" onsubmit="timChuyenBay(event)">
+            <!-- PHẦN 1 -->
+            <h2>1. Thông tin chuyến bay</h2>
+
+            <div class="dong">
+                <label for="diem_di">Điểm đi:</label>
+
+                <input type="text"
+                       name="diem_di"
+                       id="diem_di"
+                       list="danhsach_thanh_pho"
+                       placeholder="Nhập điểm đi">
+
+                <datalist id="danhsach_thanh_pho">
+                    <option value="Hà Nội – HAN">
+                    <option value="TP. Hồ Chí Minh – SGN">
+                    <option value="Đà Nẵng – DAD">
+                    <option value="Nha Trang – CXR">
+                    <option value="Phú Quốc – PQC">
+                    <option value="Hải Phòng – HPH">
+                    <option value="Cần Thơ – VCA">
+                </datalist>
+            </div>
+
+            <div class="dong">
+                <label for="diem_den">Điểm đến:</label>
+
+                <input type="text"
+                       name="diem_den"
+                       id="diem_den"
+                       list="danhsach_thanh_pho"
+                       placeholder="Nhập điểm đến">
+            </div>
+
+            <div class="dong">
+                <label for="ngay_di">Ngày đi:</label>
+
+                <input type="date"
+                       name="ngay_di"
+                       id="ngay_di"
+                       required>
+            </div>
+
+            <div class="dong">
+                <label for="ngay_ve">Ngày về:</label>
+
+                <input type="date"
+                       name="ngay_ve"
+                       id="ngay_ve">
+            </div>
+
+            <div class="dong">
+                <label for="hang_ghe">Hạng ghế:</label>
+
+                <select name="hang_ghe"
+                        id="hang_ghe"
+                        onchange="tinhTien()">
+
+                    <optgroup label="Phổ thông">
+                        <option value="eco_basic" data-gia="1200000">
+                            Phổ thông cơ bản – 1.200.000đ
+                        </option>
+
+                        <option value="eco_flex" data-gia="1800000">
+                            Phổ thông linh hoạt – 1.800.000đ
+                        </option>
+                    </optgroup>
+
+                    <optgroup label="Thương gia">
+                        <option value="biz" data-gia="4500000">
+                            Thương gia – 4.500.000đ
+                        </option>
+                    </optgroup>
+
+                </select>
+            </div>
+
+
+            <!-- PHẦN 2 -->
+            <h2>2. Thông tin hành khách</h2>
+
+            <div class="khach">
+
+                <div class="dong">
+                    <label for="nguoi_lon">
+                        Số hành khách người lớn:
+                    </label>
+
+                    <input type="number"
+                           name="nguoi_lon"
+                           id="nguoi_lon"
+                           min="1"
+                           max="9"
+                           value="1"
+                           onchange="tinhTien()">
+                </div>
+
+                <div class="dong">
+                    <label for="tre_em">
+                        Số trẻ em:
+                    </label>
+
+                    <input type="number"
+                           name="tre_em"
+                           id="tre_em"
+                           min="0"
+                           max="9"
+                           value="0"
+                           onchange="tinhTien()">
+                </div>
+
+            </div>
+
+            <div class="dong">
+                <label for="ma_giam">Mã giảm giá:</label>
+
+                <input type="text"
+                       name="ma_giam"
+                       id="ma_giam"
+                       placeholder="Nhập mã nếu có"
+                       list="ma_uu_dai">
+
+                <datalist id="ma_uu_dai">
+                    <option value="SUMMER20">
+                    <option value="NEWMEMBER">
+                    <option value="HOLIDAY50">
+                </datalist>
+            </div>
+
+
+            <!-- PHẦN 3 -->
+            <h2>3. Kết quả ước tính</h2>
+
+            <div class="dong">
+
+                <label for="tong_tien">
+                    Tổng tiền ước tính:
+                </label>
+
+                <output name="tong_tien"
+                        id="tong_tien"
+                        for="hang_ghe nguoi_lon tre_em">
+                    1.200.000 VNĐ
+                </output>
+
+            </div>
+
+
+            <!-- PHẦN 4 -->
+            <h2>4. Bảo mật giao dịch</h2>
+
+            <div class="bao-mat">
+
+                <p>
+                    🔒 Hệ thống sẽ tạo một cặp khóa mã hóa để bảo vệ
+                    thông tin của bạn.
+                </p>
+
+                <!-- keygen đã bị loại bỏ khỏi HTML hiện đại,
+                     nên phần này chỉ minh họa yêu cầu của đề -->
+
+                <input type="hidden"
+                       name="security_key"
+                       value="VietAir">
+
+            </div>
+
+
+            <!-- NÚT -->
+            <div class="nut">
+
+                <button type="submit">
+                    ✈ Tìm chuyến bay
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <script>
+
+        function tinhTien() {
+
+            var hangGhe = document.getElementById("hang_ghe");
+
+            var nguoiLon = document.getElementById("nguoi_lon").value;
+
+            var treEm = document.getElementById("tre_em").value;
+
+            var tongTien = document.getElementById("tong_tien");
+
+            var gia = hangGhe.options[hangGhe.selectedIndex]
+                       .getAttribute("data-gia");
+
+            gia = Number(gia);
+
+            nguoiLon = Number(nguoiLon);
+
+            treEm = Number(treEm);
+
+            // Người lớn tính 100% giá vé
+            // Trẻ em tính 50% giá vé
+
+            var tien = gia * nguoiLon + gia * 0.5 * treEm;
+
+            tongTien.value = tien;
+
+            tongTien.innerHTML =
+                tien.toLocaleString("vi-VN") + " VNĐ";
+        }
+
+    </script>
+    <script>
+    function timChuyenBay(event) {
+        event.preventDefault();
+
+        alert("Đã tìm chuyến bay thành công!");
+    }
+</script>
+
+</body>
+
+</html>
